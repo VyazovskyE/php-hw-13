@@ -19,6 +19,7 @@ class Select extends QueryBuilder
 		$query .= $this->getFields();
 		$query .= " FROM ";
 		$query .= $this->getTableName();
+		$query .= $this->getJoinConfigString();
 		$query .= $this->getGroupBy();
 		$query .= $this->getOrderBy();
 		$query .= $this->getWhere();

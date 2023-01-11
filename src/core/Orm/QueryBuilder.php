@@ -13,6 +13,7 @@ class QueryBuilder
 	private int $limit = 0;
 	private int $offset = 0;
 	private array $groupBy = [];
+	private array $joinConfig = [];
 
 	public function __construct()
 	{
@@ -144,5 +145,26 @@ class QueryBuilder
 		}
 
 		return " GROUP BY " . implode(", ", $this->groupBy);
+	}
+
+	public function setJoinConfig(array $joinConfig): void
+	{
+		$this->joinConfig = $joinConfig;
+	}
+
+	protected function getJoinConfigString(): string
+	{
+		if (empty($this->joinConfig)) {
+			return "";
+		}
+
+		$res = "";
+
+		foreach ($this->joinConfig as $value) {
+			$alias = isset($value['tableAlias']) ? " AS $value[tableAlias]" : "";
+			$res .= " $value[type] JOIN $value[table] $alias ON $value[on]";
+		}
+
+		return $res;
 	}
 }
