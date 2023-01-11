@@ -17,10 +17,11 @@ class Orders
 			]
 		]);
 
-		$data = $select->execute();
+		$orders = $select->execute();
+
 		return [
-			"total" => count($data),
-			"list" => $data,
+			"total" => null,
+			"list" => $orders,
 		];
 	}
 }
