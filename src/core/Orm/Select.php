@@ -21,6 +21,7 @@ class Select extends QueryBuilder
 		$query .= $this->getTableName();
 		$query .= $this->getOrderBy();
 		$query .= $this->getWhere();
+		$query .= $this->getLimitString();
 		$this->setQuery($query);
 	}
 

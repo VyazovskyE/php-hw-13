@@ -10,6 +10,8 @@ class QueryBuilder
 	private array $fields;
 	private array $orderBy;
 	private array $where;
+	private int $limit = 0;
+	private int $offset = 0;
 
 	public function __construct()
 	{
@@ -104,5 +106,28 @@ class QueryBuilder
 		}
 
 		return $this->query;
+	}
+
+	public function setLimit(int $limit): void
+	{
+		$this->limit = $limit;
+	}
+
+	public function setOffset(int $offset): void
+	{
+		$this->offset = $offset;
+	}
+
+	protected function getLimitString(): string
+	{
+		if ($this->limit === 0) {
+			return "";
+		}
+
+		if ($this->offset === 0) {
+			return " LIMIT " . $this->limit;
+		}
+
+		return " LIMIT " . $this->offset . ", " . $this->limit;
 	}
 }
