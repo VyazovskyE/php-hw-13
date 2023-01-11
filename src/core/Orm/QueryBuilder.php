@@ -12,6 +12,7 @@ class QueryBuilder
 	private array $where;
 	private int $limit = 0;
 	private int $offset = 0;
+	private array $groupBy = [];
 
 	public function __construct()
 	{
@@ -129,5 +130,19 @@ class QueryBuilder
 		}
 
 		return " LIMIT " . $this->offset . ", " . $this->limit;
+	}
+
+	public function setGroupBy(array $groupBy): void
+	{
+		$this->groupBy = $groupBy;
+	}
+
+	protected function getGroupBy(): string
+	{
+		if (empty($this->groupBy)) {
+			return "";
+		}
+
+		return " GROUP BY " . implode(", ", $this->groupBy);
 	}
 }
