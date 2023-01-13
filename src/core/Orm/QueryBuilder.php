@@ -10,6 +10,10 @@ class QueryBuilder
 	private array $fields;
 	private array $orderBy;
 	private array $where;
+	private int $limit = 0;
+	private int $offset = 0;
+	private array $groupBy = [];
+	private array $joinConfig = [];
 
 	public function __construct()
 	{
@@ -104,5 +108,63 @@ class QueryBuilder
 		}
 
 		return $this->query;
+	}
+
+	public function setLimit(int $limit): void
+	{
+		$this->limit = $limit;
+	}
+
+	public function setOffset(int $offset): void
+	{
+		$this->offset = $offset;
+	}
+
+	protected function getLimitString(): string
+	{
+		if ($this->limit === 0) {
+			return "";
+		}
+
+		if ($this->offset === 0) {
+			return " LIMIT " . $this->limit;
+		}
+
+		return " LIMIT " . $this->offset . ", " . $this->limit;
+	}
+
+	public function setGroupBy(array $groupBy): void
+	{
+		$this->groupBy = $groupBy;
+	}
+
+	protected function getGroupBy(): string
+	{
+		if (empty($this->groupBy)) {
+			return "";
+		}
+
+		return " GROUP BY " . implode(", ", $this->groupBy);
+	}
+
+	public function setJoinConfig(array $joinConfig): void
+	{
+		$this->joinConfig = $joinConfig;
+	}
+
+	protected function getJoinConfigString(): string
+	{
+		if (empty($this->joinConfig)) {
+			return "";
+		}
+
+		$res = "";
+
+		foreach ($this->joinConfig as $value) {
+			$alias = isset($value['tableAlias']) ? " AS $value[tableAlias]" : "";
+			$res .= " $value[type] JOIN $value[table] $alias ON $value[on]";
+		}
+
+		return $res;
 	}
 }
