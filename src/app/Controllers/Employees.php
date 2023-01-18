@@ -11,7 +11,9 @@ class Employees
 	{
 		$model = new EmployeesModel();
 		$data = $model->getEmployees();
-		APIRenderer::renderList($data);
+		Renderer::render('employees', 'Employees', [
+			"employees" => $data["list"],
+		]);
 	}
 
 	public function getJobTitles()
