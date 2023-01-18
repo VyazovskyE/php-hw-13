@@ -7,7 +7,7 @@ use Core\Renderer;
 
 class Employees
 {
-	public function get()
+	public function get(): void
 	{
 		$model = new EmployeesModel();
 		$data = $model->getEmployees();
@@ -16,14 +16,14 @@ class Employees
 		]);
 	}
 
-	public function getJobTitles()
+	public function getJobTitles(): void
 	{
 		$model = new EmployeesModel();
 		$data = $model->getJobTitles();
 		APIRenderer::renderList($data);
 	}
 
-	public function addEmployee()
+	public function addEmployee(): void
 	{
 		if ($_SERVER["REQUEST_METHOD"] === "GET") {
 			$this->addEmployeePage();
@@ -32,7 +32,7 @@ class Employees
 		}
 	}
 
-	public function addEmployeePage($success = false, $errors = [])
+	public function addEmployeePage(bool $success = false, array $errors = []): void
 	{
 		$employeesModel = new EmployeesModel();
 		$employees = $employeesModel->getEmployees();
@@ -46,7 +46,7 @@ class Employees
 		]);
 	}
 
-	public function addEmployeeRequest()
+	public function addEmployeeRequest(): void
 	{
 		$keys = ["employeeNumber", "lastName", "firstName", "extension", "email", "officeCode", "jobTitle"];
 		$data = [];
