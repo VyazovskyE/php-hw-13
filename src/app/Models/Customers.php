@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+
+use Core\Orm\Insert;
 use Core\Orm\Select;
 
 class Customers
@@ -23,5 +25,13 @@ class Customers
 			"total" => $total[0]["total"],
 			"list" => $customers
 		];
+	}
+
+	public function addCustomer(array $data): void
+	{
+		$insert = new Insert();
+		$insert->setTableName("customers");
+		$insert->setData($data);
+		$insert->execute();
 	}
 }

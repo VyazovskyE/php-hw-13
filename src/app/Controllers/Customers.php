@@ -18,6 +18,8 @@ class Customers
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			$this->addCustomerPage();
+		} else {
+			$this->addCustomerRequest();
 		}
 	}
 
@@ -32,5 +34,43 @@ class Customers
 			'success' => $success,
 			'errors' => $errors,
 		]);
+	}
+
+	public function addCustomerRequest()
+	{
+		$requiredKeys = ['customerNumber', 'customerName', 'contactLastName', 'contactFirstName', 'phone', 'addressLine1', 'city', 'state', 'postalCode', 'country'];
+		$optionalKeys = ['addressLine2', 'state', 'postalCode', 'salesRepEmployeeNumber', 'creditLimit'];
+
+		$data = [];
+
+		foreach ($requiredKeys as $key) {
+			$data[$key] = $_POST[$key];
+		}
+
+		foreach ($optionalKeys as $key) {
+			if (isset($_POST[$key])) {
+				$data[$key] = $_POST[$key];
+			}
+		}
+
+		$errors = [];
+		foreach ($data as $key => $value) {
+			if ($value === '') {
+				$errors[] = "The field $key is required";
+			}
+		}
+
+		if (count($errors) > 0) {
+			$this->addCustomerPage(false, $errors);
+			return;
+		}
+
+		try {
+			$model = new CustomersModel();
+			$model->addCustomer($data);
+			$this->addCustomerPage(true);
+		} catch (\Exception $e) {
+			$this->addCustomerPage(false, [$e->getMessage()]);
+		}
 	}
 }

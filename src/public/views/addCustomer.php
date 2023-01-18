@@ -16,7 +16,7 @@
 	</div>
 <?php endif; ?>
 
-<form action="/add-employee" method="post">
+<form action="/add-customer" method="post">
 	<div class="mb-3">
 		<label for="customerNumber">Number</label>
 		<input type="text" name="customerNumber" id="customerNumber" class="form-control">
