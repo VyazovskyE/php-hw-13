@@ -7,13 +7,14 @@ use Core\Orm\Select;
 
 class Customers
 {
-	public function getCustomers(): array
+	public function getCustomers(int $limit = 10, int $page = 1): array
 	{
 		$select = new Select();
 		$select->setTableName("customers");
 		$select->setOrderBy(["customerNumber" => "ASC"]);
 		$select->setLimit(10);
-		$select->setOffset(5);
+		$offset = $page * $limit - $limit;
+		$select->setOffset($offset);
 		$customers = $select->execute();
 
 

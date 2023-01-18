@@ -1,3 +1,7 @@
+<h1>Employees</h1>
+
+<hr>
+
 <table class="table table-hover">
 	<thead>
 		<th>#</th>

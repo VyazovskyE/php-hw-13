@@ -9,9 +9,15 @@ class Customers
 {
 	public function get(): void
 	{
+		$page = $_GET['page'] ?? 1;
+		$perPage = 10;
 		$model = new CustomersModel();
-		$data = $model->getCustomers();
-		APIRenderer::renderList($data);
+		$data = $model->getCustomers($perPage, $page);
+		Renderer::render('customers', 'Customers', [
+			'customers' => $data['list'],
+			'totalPages' => ceil($data['total'] / $perPage),
+			'currentPage' => $page,
+		]);
 	}
 
 	public function addCustomer(): void
