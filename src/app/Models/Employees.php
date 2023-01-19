@@ -1,5 +1,7 @@
 <?php
 namespace App\Models;
+
+use Core\Orm\Insert;
 use Core\Orm\Select;
 
 class Employees
@@ -32,5 +34,13 @@ class Employees
 			"total" => count($jobTitles),
 			"list" => $jobTitles
 		];
+	}
+
+	public function addEmployee($data): void
+	{
+		$insert = new Insert();
+		$insert->setTableName("employees");
+		$insert->setData($data);
+		$insert->execute();
 	}
 }
