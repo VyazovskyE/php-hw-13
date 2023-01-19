@@ -10,6 +10,9 @@ class Customers
 	public function get(): void
 	{
 		$page = $_GET['page'] ?? 1;
+		if (intval($page <= 0)) {
+			$page = 1;
+		}
 		$perPage = 10;
 		$model = new CustomersModel();
 		$data = $model->getCustomers($perPage, $page);
