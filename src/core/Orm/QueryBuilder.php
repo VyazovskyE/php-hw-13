@@ -91,6 +91,9 @@ class QueryBuilder
 
 		foreach ($this->where as $key => $value) {
 			$res .= "$value[field] $value[operator] $value[value]";
+			if ($key !== count($this->where) - 1) {
+				$res .= " AND ";
+			}
 		}
 
 		return " WHERE " . $res;

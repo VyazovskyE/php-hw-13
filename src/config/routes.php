@@ -7,4 +7,6 @@ return [
 	'/orders' => 'Orders@get',
 	'/add-employee' => 'Employees@addEmployee',
 	'/add-customer' => 'Customers@addCustomer',
+	'/create-user' => 'Users@createUser',
+	'/users' => 'Users@userList',
 ];
