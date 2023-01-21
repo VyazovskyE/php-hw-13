@@ -15,13 +15,15 @@ class Customers
 		$select->setLimit(10);
 		$offset = $page * $limit - $limit;
 		$select->setOffset($offset);
-		$customers = $select->execute();
+		$select->execute();
+		$customers = $select->fetch();
 
 
 		$select->setFields(["COUNT(*) AS total"]);
 		$select->setLimit(0);
 		$select->setOffset(0);
-		$total = $select->execute();
+		$select->execute();
+		$total = $select->fetch();
 		return [
 			"total" => $total[0]["total"],
 			"list" => $customers

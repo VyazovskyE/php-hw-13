@@ -10,12 +10,14 @@ class Employees
 	{
 		$select = new Select();
 		$select->setTableName("employees");
-		$employees = $select->execute();
+		$select->execute();
+		$employees = $select->fetch();
 
 		$select->setFields(["COUNT(*) AS total"]);
 		$select->setLimit(0);
 		$select->setOffset(0);
-		$total = $select->execute();
+		$select->execute();
+		$total = $select->fetch();
 		return [
 			"total" => $total[0]["total"],
 			"list" => $employees
@@ -28,7 +30,8 @@ class Employees
 		$select->setTableName("employees");
 		$select->setFields(["jobTitle, COUNT(*)"]);
 		$select->setGroupBy(["jobTitle"]);
-		$jobTitles = $select->execute();
+		$select->execute();
+		$jobTitles = $select->fetch();
 
 		return [
 			"total" => count($jobTitles),

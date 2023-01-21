@@ -9,12 +9,14 @@ class Offices
 	{
 		$select = new Select();
 		$select->setTableName("offices");
-		$offices = $select->execute();
+		$select->execute();
+		$offices = $select->fetch();
 
 		$select->setFields(["COUNT(*) AS total"]);
 		$select->setLimit(0);
 		$select->setOffset(0);
-		$total = $select->execute();
+		$select->execute();
+		$total = $select->fetch();
 		return [
 			"total" => $total[0]["total"],
 			"list" => $offices

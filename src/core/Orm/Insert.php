@@ -3,26 +3,11 @@ namespace Core\Orm;
 
 use PDO;
 
-class Insert
+class Insert extends SQL
 {
-	private PDO $connector;
-	private string $tableName;
 	private array $data;
 
-	public function __construct()
-	{
-		$connector = new DBConnector();
-		$this->connector = $connector->connect();
-	}
-
-	public function execute()
-	{
-		$query = $this->buildQuery();
-		$statement = $this->connector->prepare($query);
-		$statement->execute();
-	}
-
-	public function buildQuery()
+	public function buildQuery(): string
 	{
 		$fields = $this->getFields();
 		$values = $this->getValues();
@@ -32,11 +17,6 @@ class Insert
 		$query .= "'" . implode("', '", $values) . "'";
 		$query .= ")";
 		return $query;
-	}
-
-	public function setTableName(string $tableName): void
-	{
-		$this->tableName = $tableName;
 	}
 
 	public function setData(array $data): void

@@ -17,7 +17,8 @@ class Orders
 			]
 		]);
 
-		$orders = $select->execute();
+		$select->execute();
+		$orders = $select->fetch();
 
 		return [
 			"total" => null,

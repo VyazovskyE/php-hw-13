@@ -30,7 +30,8 @@ class Users
 				'value' => $filter['ageTo'],
 			]
 		]);
-		$users = $select->execute();
+		$select->execute();
+		$users = $select->fetch();
 		return $users;
 	}
 }
