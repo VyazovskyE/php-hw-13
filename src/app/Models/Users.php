@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Core\Orm\Insert;
 use Core\Orm\Select;
-
+use Core\Orm\Where;
 class Users
 {
 	public function createUser(array $data): void
@@ -16,26 +16,6 @@ class Users
 
 	public function getUsers(array $filter): array
 	{
-		# (first_name = 'Vasi' AND last_name = 'Pupkin') OR (first_name='Petya' AND second_name = 'Sidorov' AND people_color = 'blue')
-		/* $where = new Where();
-		$where
-			->group(function ($where) {
-				$where->condition('first_name', '=', "Vasi");
-				$where->and();
-				$where->condition('last_name', '=', "Pupkin");
-			})
-			->or()
-			->group(function ($where) {
-				$where->condition('first_name', '=', "Petya");
-				$where->and();
-				$where->condition('second_name', '=', "Sidorov");
-				$where->and();
-				$where->condition('people_color', '=', "blue");
-			});
-
-		print_r($where->getRes()); */
-
-
 		$select = new Select();
 		$select->setTableName('users');
 		$select->where()
