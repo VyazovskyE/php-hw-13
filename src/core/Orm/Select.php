@@ -7,7 +7,7 @@ class Select extends SQL
 {
 	private array $fields;
 	private array $orderBy;
-	private array $where;
+	private Where $where;
 	private int $limit = 0;
 	private int $offset = 0;
 	private array $groupBy = [];
@@ -59,27 +59,20 @@ class Select extends SQL
 		return " ORDER BY " . $res;
 	}
 
-	public function setWhere(array $where): void
+	public function where(): Where
 	{
-		$this->where = $where;
+		$this->where = new Where();
+		return $this->where;
 	}
 
 	private function getWhere(): string
 	{
-		if (empty($this->where)) {
+		$whereString = $this->where->getRes();
+		if (empty($whereString)) {
 			return "";
 		}
 
-		$res = "";
-
-		foreach ($this->where as $key => $value) {
-			$res .= "$value[field] $value[operator] $value[value]";
-			if ($key !== count($this->where) - 1) {
-				$res .= " AND ";
-			}
-		}
-
-		return " WHERE " . $res;
+		return " WHERE " . $whereString;
 	}
 
 	public function setLimit(int $limit): void
