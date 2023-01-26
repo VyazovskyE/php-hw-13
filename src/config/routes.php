@@ -9,4 +9,7 @@ return [
 	'/add-customer' => 'Customers@addCustomer',
 	'/create-user' => 'Users@createUser',
 	'/users' => 'Users@userList',
+	'/user' => 'Users@userPage',
+	'/update-user' => 'Users@updateUser',
+	'/delete-user' => 'Users@deleteUser',
 ];
