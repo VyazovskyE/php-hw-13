@@ -13,11 +13,6 @@ if (count($pageData['messages']) > 0) {
 	}
 }
 ?>
-<pre>
-<?php
-print_r($_SESSION);
-?>
-</pre>
 
 <hr>
 
