@@ -6,7 +6,7 @@ use Exception;
 class Select extends SQL
 {
 	private array $fields;
-	private array $orderBy;
+	private array $orderBy = [];
 	private Where $where;
 	private int $limit = 0;
 	private int $offset = 0;
@@ -21,8 +21,8 @@ class Select extends SQL
 		$query .= $this->tableName;
 		$query .= $this->getJoinConfigString();
 		$query .= $this->getGroupBy();
-		$query .= $this->getOrderBy();
 		$query .= $this->getWhere();
+		$query .= $this->getOrderBy();
 		$query .= $this->getLimitString();
 		return $query;
 	}

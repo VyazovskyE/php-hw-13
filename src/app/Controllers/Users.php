@@ -87,6 +87,12 @@ class Users
 			'user' => $user,
 			'success' => $success,
 			'errors' => $errors,
+			'formFields' => [
+				'id' => $user['id'],
+				'name' => $user['name'],
+				'email' => $user['email'],
+				'age' => $user['age'],
+			],
 		]);
 	}
 

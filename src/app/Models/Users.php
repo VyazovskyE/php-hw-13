@@ -22,6 +22,7 @@ class Users
 		$select->setTableName('users');
 		$select->where()
 			->condition('age', 'BETWEEN', [$filter['ageFrom'], $filter['ageTo']]);
+		$select->setOrderBy(['registered_at' => 'DESC']);
 		$select->execute();
 		$users = $select->fetch();
 		return $users;

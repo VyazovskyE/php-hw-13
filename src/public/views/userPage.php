@@ -1,17 +1,25 @@
-<? $user = $pageData['user']; ?>
+<?
+$user = $pageData['user'];
+$formFields = $pageData['formFields'];
+?>
 <div class="d-flex align-items-baseline justify-content-between">
 	<h1>
 		<?= $user['name'] ?>
 	</h1>
 	<a href="/users" class="">Back</a>
 </div>
+<p class="text-muted">
+	Registered at <?= $user['registered_at'] ?>
+</p>
 
 <hr>
 
 <?php if (!empty($pageData['errors'])): ?>
 	<div class="alert alert-danger">
 		<?php foreach ($pageData['errors'] as $error): ?>
-			<p><?php echo $error; ?></p>
+			<p>
+				<?php echo $error; ?>
+			</p>
 		<?php endforeach; ?>
 	</div>
 
@@ -27,19 +35,16 @@
 <?php endif; ?>
 
 <form action="/update-user" method="post">
-	<input type="hidden" name="id" value="<?= $user['id'] ?>">
-	<div class="mb-3">
-		<label for="name">Name</label>
-		<input type="text" value="<?= $user['name'] ?>" name="name" id="name" class="form-control">
-	</div>
-	<div class="mb-3">
-		<label for="email">Email</label>
-		<input type="text" value="<?= $user['email'] ?>" name="email" id="email" class="form-control">
-	</div>
-	<div class="mb-3">
-		<label for="age">Age</label>
-		<input type="text" value="<?= $user['age'] ?>" name="age" id="age" class="form-control">
-	</div>
+	<?php foreach ($formFields as $key => $value): ?>
+		<?php if ($key === 'id'): ?>
+			<input type="hidden" name="<?= $key ?>" value="<?= $value ?>">
+		<?php else: ?>
+			<div class="mb-3">
+				<label for="<?= $key ?>"><?= ucfirst($key) ?></label>
+				<input type="text" value="<?= $value ?>" name="<?= $key ?>" id="<?= $key ?>" class="form-control">
+			</div>
+		<?php endif; ?>
+	<?php endforeach; ?>
 	<div class="mb-3">
 		<button type="submit" class="btn btn-primary">Update</button>
 	</div>
