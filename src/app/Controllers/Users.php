@@ -55,7 +55,6 @@ class Users
 
 	public function userList(array $messages = []): void
 	{
-		$_SESSION['test'] = 'test';
 		$ageFrom = $_GET['age_from'] ?? 0;
 		$ageTo = $_GET['age_to'] ?? 100;
 

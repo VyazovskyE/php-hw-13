@@ -6,10 +6,6 @@
 	<a href="/users" class="">Back</a>
 </div>
 
-<pre>
-	<?php print_r($_SESSION); ?>
-</pre>
-
 <hr>
 
 <?php if (!empty($pageData['errors'])): ?>
